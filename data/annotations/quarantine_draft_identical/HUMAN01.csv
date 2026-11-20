@@ -1,0 +1,21 @@
+pair_id,human_lmp_score,error_type,notes,annotator_id,annotated_at
+ENG_CON_026,8,None,"The contrary-intention carve-out and the joint nature of the obligation are both kept; only the placement of the 'unless' clause is rearranged. No change in legal effect.",HUMAN01,2026-11-17T12:36:00Z
+HIN_CON_026,8,None,"Hindi text retains विपरीत आशय and joint liability; surface reordering only.",HUMAN01,2026-11-17T12:36:00Z
+ENG_CON_028,5,Omission,"Precondition that the promisor has not already undertaken to perform without application is dropped, together with the proper-place and usual-hours restrictions. Duty is left unqualified.",HUMAN01,2026-11-17T12:36:00Z
+HIN_CON_028,5,Omission,"Identical loss of precondition and qualifiers in the Hindi version.",HUMAN01,2026-11-17T12:36:00Z
+ENG_CON_029,3,Obligation/Permission,"'may' is hardened to 'must', converting a liberty into a duty; the phrase 'or sanctions' is also omitted, narrowing the accepted modes.",HUMAN01,2026-11-17T12:36:00Z
+HIN_CON_029,3,Obligation/Permission,"Modal change from possibility to obligation plus loss of alternative modes.",HUMAN01,2026-11-17T12:36:00Z
+ENG_CON_031,1,Contradiction,"The severability rule is inverted: instead of the lawful branch remaining enforceable, neither branch can be enforced. Core consequence is reversed.",HUMAN01,2026-11-17T12:36:00Z
+HIN_CON_031,1,Contradiction,"Same inversion of the severability principle in Hindi.",HUMAN01,2026-11-17T12:36:00Z
+ENG_CON_034,9,None,"Substitute agreement, rescission and alteration are all preserved as triggering events; only wording is tightened.",HUMAN01,2026-11-17T12:36:00Z
+HIN_CON_034,9,None,"All three discharge modes retained without substantive alteration.",HUMAN01,2026-11-17T12:36:00Z
+ENG_CON_036,4,Omission,"Rescission is allowed but the restitution obligation that accompanies it is completely omitted. Half of the statutory bargain is missing.",HUMAN01,2026-11-17T12:36:00Z
+HIN_CON_036,4,Omission,"Rescission kept; लाभ प्रत्यर्पण duty dropped.",HUMAN01,2026-11-17T12:36:00Z
+ENG_CON_039,3,Omission,"The limiting phrase 'reasonable compensation not exceeding' is removed. The section’s protective ceiling becomes an entitlement to the full stipulated amount.",HUMAN01,2026-11-17T12:36:00Z
+HIN_CON_039,3,Omission,"Ceiling language omitted; effect is reversed.",HUMAN01,2026-11-17T12:36:00Z
+ENG_CON_042,4,Exception,"The contractual opt-out is deleted. Parties can no longer agree to a different liability regime even though the statute expressly allows it.",HUMAN01,2026-11-17T12:36:00Z
+HIN_CON_042,4,Exception,"Opt-out clause removed in Hindi as well.",HUMAN01,2026-11-17T12:36:00Z
+ENG_CON_047,2,Hallucination,"'Invalid' is rewritten as 'voidable at the option of the creditor'. Both the consequence and the party who holds the election are fabricated; the party at fault is given the right.",HUMAN01,2026-11-17T12:36:00Z
+HIN_CON_047,2,Hallucination,"Same fabricated consequence and wrong-party election in Hindi.",HUMAN01,2026-11-17T12:36:00Z
+ENG_CON_050,6,Obligation/Permission,"'Must' is softened to 'should' while the exception limb remains. Pure deontic weakening with no other loss.",HUMAN01,2026-11-17T12:36:00Z
+HIN_CON_050,6,Obligation/Permission,"Parallel modal softening in Hindi.",HUMAN01,2026-11-17T12:36:00Z

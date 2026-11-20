@@ -1,0 +1,9 @@
+pair_id,consensus_score,error_type,adjudicator_id,notes,adjudicated_at
+ENG_CON_029,3,Obligation/Permission,ADJ01,"Modal change from 'may' to 'must' converts a liberty into an obligation and is a material deontic shift. Score of 3 better reflects the severity than 4.",2026-11-17T12:46:00Z
+HIN_CON_029,3,Obligation/Permission,ADJ01,"Same modal elevation in Hindi; 3 is the appropriate severity.",2026-11-17T12:46:00Z
+ENG_CON_036,3,Omission,ADJ01,"Restitution is the price of rescission. Omitting it removes a core statutory consequence. Lower score of 3 is warranted.",2026-11-17T12:46:00Z
+HIN_CON_036,3,Omission,ADJ01,"Identical omission of the restitution obligation in Hindi.",2026-11-17T12:46:00Z
+ENG_CON_039,2,Omission,ADJ01,"Removing the 'reasonable compensation not exceeding' ceiling inverts the protective purpose of the section. Score of 2 is appropriate.",2026-11-17T12:46:00Z
+HIN_CON_039,2,Omission,ADJ01,"Same inversion of the protective ceiling in Hindi.",2026-11-17T12:46:00Z
+ENG_CON_042,3,Exception,ADJ01,"Deletion of the contractual opt-out removes an express freedom the statute gives the parties. Score of 3 correctly flags the loss.",2026-11-17T12:46:00Z
+HIN_CON_042,3,Exception,ADJ01,"Identical loss of the opt-out clause in Hindi.",2026-11-17T12:46:00Z

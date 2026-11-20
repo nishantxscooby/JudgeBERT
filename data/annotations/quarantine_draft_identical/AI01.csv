@@ -1,0 +1,51 @@
+pair_id,human_lmp_score,error_type,notes,annotator_id,annotated_at
+ENG_CON_026,8,None,"Reorders the 'unless' clause but preserves the contrary-intention exception and the joint obligation. No operative loss.",AI01,2026-11-17T11:55:00Z
+HIN_CON_026,8,None,"Hindi counterpart; विपरीत आशय qualifier and joint obligation fully retained.",AI01,2026-11-17T11:55:00Z
+ENG_CON_027,8,None,"Devolution rule for joint lives and for the representative + survivors is preserved in both stages.",AI01,2026-11-17T11:55:00Z
+HIN_CON_027,8,None,"Hindi counterpart; joint-life and post-death devolution both retained.",AI01,2026-11-17T11:55:00Z
+ENG_CON_028,5,Omission,"Drops the precondition that the promisor has not undertaken to perform without application, plus the proper-place and usual-hours qualifiers. Duty becomes unconditional and location/time-unspecified.",AI01,2026-11-17T11:55:00Z
+HIN_CON_028,5,Omission,"Hindi counterpart; precondition and both qualifiers removed.",AI01,2026-11-17T11:55:00Z
+ENG_CON_029,3,Obligation/Permission,"'may' → 'must'. Converts a liberty of the promisor into a binding requirement; also drops 'or sanctions', narrowing the modes the promisee may accept.",AI01,2026-11-17T11:55:00Z
+HIN_CON_029,3,Obligation/Permission,"Hindi counterpart; 'किया जा सकता है' → 'किया जाना चाहिए'.",AI01,2026-11-17T11:55:00Z
+ENG_CON_030,5,Omission,"Compensation entitlement is dropped. Rescission survives but the damages claim does not.",AI01,2026-11-17T11:55:00Z
+HIN_CON_030,5,Omission,"Hindi counterpart; क्षतिपूर्ति entitlement removed.",AI01,2026-11-17T11:55:00Z
+ENG_CON_031,1,Contradiction,"'the legal branch alone can be enforced' → 'neither branch can be enforced'. Severability of the lawful limb is reversed; the whole promise is made unenforceable.",AI01,2026-11-17T11:55:00Z
+HIN_CON_031,1,Contradiction,"Hindi counterpart; 'केवल विधिपूर्ण शाखा' → 'कोई भी शाखा नहीं'.",AI01,2026-11-17T11:55:00Z
+ENG_CON_032,5,Scope,"Drops three limiting elements: absence of other circumstances, the discretion qualifier, and the express irrelevance of the limitation bar.",AI01,2026-11-17T11:55:00Z
+HIN_CON_032,5,Scope,"Hindi counterpart; qualifying elements dropped.",AI01,2026-11-17T11:55:00Z
+ENG_CON_033,6,Condition,"Drops the equal-standing proportional rule and the limitation-bar clarification. For equal-standing debts the simplification supplies no rule.",AI01,2026-11-17T11:55:00Z
+HIN_CON_033,6,Condition,"Hindi counterpart; समान स्थिति rule dropped.",AI01,2026-11-17T11:55:00Z
+ENG_CON_034,9,None,"All three triggering events (substitute, rescind, alter) retained; only stylistic change.",AI01,2026-11-17T11:55:00Z
+HIN_CON_034,9,None,"Hindi counterpart; all three triggers retained.",AI01,2026-11-17T11:55:00Z
+ENG_CON_035,5,Omission,"Two of the three options lost (extend time; accept substituted satisfaction). Promisee's powers materially reduced.",AI01,2026-11-17T11:55:00Z
+HIN_CON_035,5,Omission,"Hindi counterpart; समय विस्तार and संतोष options dropped.",AI01,2026-11-17T11:55:00Z
+ENG_CON_036,4,Omission,"Restitution obligation entirely dropped. Rescission is granted while the price of it is concealed — the legally decisive half of the section.",AI01,2026-11-17T11:55:00Z
+HIN_CON_036,4,Omission,"Hindi counterpart; लाभ प्रत्यर्पण obligation dropped.",AI01,2026-11-17T11:55:00Z
+ENG_CON_037,9,None,"Cross-reference to proposal communication/revocation rules preserved intact.",AI01,2026-11-17T11:55:00Z
+HIN_CON_037,9,None,"Hindi counterpart.",AI01,2026-11-17T11:55:00Z
+ENG_CON_038,8,None,"Causal link ('caused thereby') preserved. 'neglects or' is elided but the operative excuse survives.",AI01,2026-11-17T11:55:00Z
+HIN_CON_038,8,None,"Hindi counterpart; causal link retained.",AI01,2026-11-17T11:55:00Z
+ENG_CON_039,3,Omission,"Drops 'reasonable compensation not exceeding'. Converts a ceiling on damages into an entitlement to the full stipulated sum — the opposite of the section's purpose.",AI01,2026-11-17T11:55:00Z
+HIN_CON_039,3,Omission,"Hindi counterpart; 'उचित क्षतिपूर्ति' ceiling removed.",AI01,2026-11-17T11:55:00Z
+ENG_CON_040,9,None,"Definition of guarantee and the oral/written rule both preserved.",AI01,2026-11-17T11:55:00Z
+HIN_CON_040,9,None,"Hindi counterpart.",AI01,2026-11-17T11:55:00Z
+ENG_CON_041,6,Scope,"Drops 'or any promise made'. Excludes executory consideration; matters where the benefit is a promise rather than an act.",AI01,2026-11-17T11:55:00Z
+HIN_CON_041,6,Scope,"Hindi counterpart; 'अथवा दिया गया कोई भी वचन' removed.",AI01,2026-11-17T11:55:00Z
+ENG_CON_042,4,Exception,"Removes the contractual opt-out. Parties lose the ability, expressly preserved by the section, to agree a different liability.",AI01,2026-11-17T11:55:00Z
+HIN_CON_042,4,Exception,"Hindi counterpart; 'जब तक कि संविदा द्वारा अन्यथा उपबंधित न हो' removed.",AI01,2026-11-17T11:55:00Z
+ENG_CON_043,10,None,"Pure definitional sentence; no legal content at risk from rewording.",AI01,2026-11-17T11:55:00Z
+HIN_CON_043,10,None,"Hindi counterpart.",AI01,2026-11-17T11:55:00Z
+ENG_CON_044,5,Exception,"Drops the guarantee-provision qualifier and the 'or to enforce any other remedy' limb.",AI01,2026-11-17T11:55:00Z
+HIN_CON_044,5,Exception,"Hindi counterpart; qualifier and second limb removed.",AI01,2026-11-17T11:55:00Z
+ENG_CON_045,4,Condition,"Drops two of the three cumulative requirements (creditor's omission of a duty; impairment of the surety's eventual remedy).",AI01,2026-11-17T11:55:00Z
+HIN_CON_045,4,Condition,"Hindi counterpart; two cumulative conditions dropped.",AI01,2026-11-17T11:55:00Z
+ENG_CON_046,6,Scope,"Narrows 'made by, or with his knowledge and assent' to the creditor's own act only, and drops the materiality requirement.",AI01,2026-11-17T11:55:00Z
+HIN_CON_046,6,Scope,"Hindi counterpart; जानकारी/सहमति and सारभूत भाग requirements dropped.",AI01,2026-11-17T11:55:00Z
+ENG_CON_047,2,Hallucination,"'invalid' → 'voidable at the option of the creditor'. Both the consequence and the party holding the election are invented; the creditor (the party at fault) is given the option.",AI01,2026-11-17T11:55:00Z
+HIN_CON_047,2,Hallucination,"Hindi counterpart; अविधिमान्य → शून्यकरणीय with the wrong party holding the option.",AI01,2026-11-17T11:55:00Z
+ENG_CON_048,5,Condition,"Drops every qualifying condition, including the 'absence of any contract to the contrary' that lets co-sureties agree a different split.",AI01,2026-11-17T11:55:00Z
+HIN_CON_048,5,Condition,"Hindi counterpart; all qualifications including विपरीत संविदा dropped.",AI01,2026-11-17T11:55:00Z
+ENG_CON_049,9,None,"Second simplification of s.10; free consent, competence, lawful consideration/object and the 'not declared void' limb all retained.",AI01,2026-11-17T11:55:00Z
+HIN_CON_049,9,None,"Hindi counterpart of the second s.10 simplification.",AI01,2026-11-17T11:55:00Z
+ENG_CON_050,6,Obligation/Permission,"'must' → 'should'. Modal weakened while the exception limb is retained; isolates the deontic change.",AI01,2026-11-17T11:55:00Z
+HIN_CON_050,6,Obligation/Permission,"Hindi counterpart; 'करना होगा' → 'करना चाहिए'.",AI01,2026-11-17T11:55:00Z

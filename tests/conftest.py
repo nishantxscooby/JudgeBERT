@@ -113,3 +113,49 @@ def write_annotations():
     fails under ``--import-mode=importlib``.
     """
     return _write_annotations
+
+
+@pytest.fixture
+def unannotated_corpus_env(tmp_path: Path) -> dict[str, Any]:
+    """Provides an isolated unannotated dataset and config pointing to it.
+
+    Enforces historical pre-gold blocking conditions without mutating the live corpus:
+    - human_lmp_score, error_type, decision, annotator_id, annotated_at are cleared.
+    - annotation_status is set to 'unannotated'.
+    - draft_lmp_score and draft_error_type remain preserved as drafts only.
+    - An isolated config YAML and mapping points paths['processed_dir'] to this directory.
+    """
+    import copy
+    import yaml
+    from src.data.load_data import load_master
+    from src.experiments.common import load_experiment_config
+
+    df = load_master(subset="all")
+    df["human_lmp_score"] = pd.NA
+    df["error_type"] = pd.NA
+    df["decision"] = pd.NA
+    df["annotation_status"] = "unannotated"
+    df["annotator_id"] = pd.NA
+    df["annotated_at"] = pd.NA
+
+    proc_dir = tmp_path / "isolated_unannotated_data"
+    proc_dir.mkdir(parents=True, exist_ok=True)
+    csv_path = proc_dir / "lmp_pairs.csv"
+    df.to_csv(csv_path, index=False, encoding="utf-8")
+
+    cfg = copy.deepcopy(load_experiment_config())
+    cfg["paths"]["processed_dir"] = str(proc_dir)
+    cfg["paths"]["processed_dir_abs"] = str(proc_dir)
+
+    cfg_file = tmp_path / "isolated_unannotated_config.yaml"
+    with open(cfg_file, "w", encoding="utf-8") as f:
+        yaml.safe_dump(cfg, f)
+
+    return {
+        "df": df,
+        "csv_path": csv_path,
+        "proc_dir": proc_dir,
+        "cfg": cfg,
+        "cfg_file": cfg_file,
+    }
+

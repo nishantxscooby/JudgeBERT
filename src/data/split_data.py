@@ -37,6 +37,14 @@ from src.utils.logging_utils import get_logger, setup_logging
 logger = get_logger(__name__)
 
 
+def effective_split_seed(cfg: dict, explicit_seed: int | None) -> int:
+    """Resolve the seed actually used by splitting and provenance metadata."""
+    if explicit_seed is not None:
+        return int(explicit_seed)
+    split_cfg = cfg.get("splits", {})
+    return int(split_cfg.get("seed", cfg["project"]["seed"]))
+
+
 # ---------------------------------------------------------------------------
 # Group-level assignment
 # ---------------------------------------------------------------------------
@@ -90,7 +98,7 @@ def assign_splits(
         "validation": float(split_cfg.get("validation", 0.15)),
         "test": float(split_cfg.get("test", 0.15)),
     }
-    seed = seed if seed is not None else int(split_cfg.get("seed", cfg["project"]["seed"]))
+    seed = effective_split_seed(cfg, seed)
 
     if group_column not in df.columns:
         raise KeyError(
@@ -240,7 +248,8 @@ def main(argv: list[str] | None = None) -> int:
 
     cfg = load_config(args.config)
     setup_logging("INFO")
-    set_global_seed(args.seed or cfg["project"]["seed"])
+    split_seed = effective_split_seed(cfg, args.seed)
+    set_global_seed(split_seed)
 
     from src.data.load_data import add_derived_columns, master_path
 
@@ -254,7 +263,7 @@ def main(argv: list[str] | None = None) -> int:
     df = schema.ensure_columns(df)
     df = schema.coerce_types(df)
     df = add_derived_columns(df, cfg)
-    df = assign_splits(df, cfg, seed=args.seed)
+    df = assign_splits(df, cfg, seed=split_seed)
 
     write_csv(df, output_path)
 
@@ -271,7 +280,7 @@ def main(argv: list[str] | None = None) -> int:
         reports_dir = resolve_path(cfg, "reports_dir", create=True)
         results_dir = resolve_path(cfg, "results_dir", create=True)
         write_json(
-            {"provenance": provenance(cfg, seed=args.seed), **diag},
+            {"provenance": provenance(cfg, seed=split_seed), **diag},
             results_dir / "split_diagnostics.json",
         )
         path = reports_dir / "split_diagnostics.md"

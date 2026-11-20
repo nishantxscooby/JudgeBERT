@@ -18,6 +18,7 @@ from __future__ import annotations
 import copy
 import hashlib
 import json
+import math
 import os
 import random
 from pathlib import Path
@@ -122,7 +123,19 @@ def validate_config(cfg: Mapping[str, Any]) -> None:
     if not ds:
         problems.append("missing top-level 'dataset' section")
     else:
-        if ds.get("score_min", 0) >= ds.get("score_max", 0):
+        score_bounds_valid = True
+        for field in ("score_min", "score_max"):
+            value = ds.get(field)
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or not math.isfinite(float(value))
+            ):
+                problems.append(
+                    f"dataset.{field} must be a number, not a boolean"
+                )
+                score_bounds_valid = False
+        if score_bounds_valid and ds["score_min"] >= ds["score_max"]:
             problems.append(
                 f"dataset.score_min ({ds.get('score_min')}) must be < "
                 f"dataset.score_max ({ds.get('score_max')})"

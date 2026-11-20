@@ -195,3 +195,15 @@ def test_group_table_uses_a_modal_stratum_for_mixed_groups(corpus):
     table = split_data._group_table(corpus, "source_group")
     assert table["stratum"].notna().all()
     assert not table["stratum"].str.contains("nan").any()
+
+
+def test_effective_split_seed_uses_the_configured_split_seed_by_default():
+    cfg = {"project": {"seed": 42}, "splits": {"seed": 17}}
+
+    assert split_data.effective_split_seed(cfg, None) == 17
+
+
+def test_effective_split_seed_prefers_an_explicit_cli_override():
+    cfg = {"project": {"seed": 42}, "splits": {"seed": 17}}
+
+    assert split_data.effective_split_seed(cfg, 99) == 99

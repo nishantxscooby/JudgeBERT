@@ -1,6 +1,6 @@
 # Data Quality Report
 
-_Generated 2026-10-06T10:26:54Z · config `d014eeff5f86`_
+_Generated 2026-11-17T06:47:03Z · config `d014eeff5f86`_
 
 ## Status: **PASS**
 
@@ -62,5 +62,4 @@ _Generated 2026-10-06T10:26:54Z · config `d014eeff5f86`_
 ### Human LMP score distribution
 
 **No human annotations yet.** Every score is either absent or a non-gold draft. No experiment may be reported as final. `TODO_HUMAN_ANNOTATION`
-
 

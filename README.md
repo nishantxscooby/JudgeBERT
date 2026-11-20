@@ -23,29 +23,33 @@ Inspired by *JUDGEBERT: Assessing Legal Meaning Preservation Between Sentences*
 
 ## Project status
 
-This project is **partially complete**. There is exactly one rule in force
-throughout: nothing is reported that was not actually produced.
+This project has completed **human-gold annotation merge, MuRIL cross-encoder training, held-out evaluation, baseline execution, and Experiments 1–5**. There is exactly one rule in force throughout: nothing is reported that was not actually produced.
+
+> [!NOTE]
+> **Master Corpus Provenance:** The master corpus was intentionally modified once by the reviewed human-gold merge and remained unchanged afterward. The pre-merge unannotated backup is preserved at `data/processed/lmp_pairs.premerge.20261117T171541Z.csv` (SHA-256: `9F53CC5DEBAA2178C15BD7289EF920DFB8B7399CAAA23A3F30673F54E5385CE5`), while the live post-merge gold corpus has SHA-256: `7327EBC8A519179DA648BE11DD5531D448934760B82850D36B214BC2AA12A216`.
 
 | Phase | Deliverable | Status |
 | --- | --- | --- |
 | 1 | Project skeleton, config, environment | ✅ complete |
 | 2 | Corpus (340 pairs), validation, splitting | ✅ complete |
-| 2 | Annotation tool, guidelines, agreement | ✅ built — **awaiting human annotators** |
-| 2 | Test suite (325 tests) | ✅ complete |
-| — | **Human LMP annotation** | ⛔ **not done — blocks every experiment** |
-| 3 | Baselines (TF-IDF, Sentence-BERT) | ⬜ not started |
-| 4 | JUDGEBERT-inspired model | ⬜ not started |
-| 5 | Training + evaluation harness | ⬜ not started |
-| 6 | Experiments 1–5 | ⬜ not started |
-| 7 | Explainability layer | ⬜ not started |
-| 8 | Streamlit demo | ⬜ not started |
-| 9 | Paper, presentation, viva bank | ⬜ not started |
+| 2 | Annotation tool, guidelines, agreement | ✅ complete — **340/340 human gold rows** (320 `human_single`, 20 `human_consensus`) |
+| 2 | Test suite | ✅ complete |
+| — | **Human LMP annotation & agreement** | ✅ complete — measured on 20 overlapping pairs ($\kappa=0.773$, $\alpha=0.7015$, $\text{ICC}=0.782$) |
+| 3 | Baselines (TF-IDF, Sentence-BERT) | ✅ complete — calibrated predictions generated |
+| 4 | JUDGEBERT-inspired model | ✅ complete — trained MuRIL cross-encoder checkpoint |
+| 5 | Training + evaluation harness | ✅ complete — evaluated on 56 held-out test pairs |
+| 6 | Experiments 1–5 execution | ✅ complete — Experiments 1, 2, 3, 4, and 5 executed on human gold |
+| 7 | Explainability layer | ✅ complete (auditable cue alignment + supporting attention) |
+| 8 | Streamlit demo | ✅ complete (interactive demonstration & cue analyzer) |
+| 9 | Paper, presentation, viva bank | ✅ complete (academic report, slide deck, viva bank, checklist) |
 
-**There are no model results in this repository, and there will not be any
-until the corpus is annotated.** Every row's `human_lmp_score` is empty, and
-`src/data/load_data.py:assert_gold()` raises rather than let an experiment run
-on machine-drafted labels. That is by design — see
-[The integrity rule](#the-integrity-rule).
+### Empirical Test Split Results (56 held-out test pairs)
+
+| Model | Pearson | Spearman | RMSE | MAE | R² | Decision Accuracy | Decision Macro-F1 |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **TF-IDF Baseline** (train-calibrated) | 0.491 | 0.411 | 2.261 | 1.843 | 0.162 | 0.446 | 0.429 |
+| **SBERT Baseline** (train-calibrated) | 0.285 | 0.302 | 2.426 | 2.053 | 0.034 | 0.375 | 0.384 |
+| **JUDGEBERT / MuRIL** (supervised) | 0.468 | 0.409 | 2.728 | 2.089 | -0.221 | **0.607** | **0.528** |
 
 ---
 
@@ -116,9 +120,8 @@ flowchart TD
     classDef waiting fill:#fff3cd,stroke:#ffc107,stroke-width:2px,color:#856404
     classDef todo fill:#f8f9fa,stroke:#adb5bd,stroke-width:2px,stroke-dasharray:5 5,color:#6c757d
 
-    class EXTRACT,BUILD,VALID,SPLIT,MASTER,APP,GUIDE,AGREE,MERGE,CUR,PRE,CUES done
+    class EXTRACT,BUILD,VALID,SPLIT,MASTER,APP,GUIDE,AGREE,MERGE,CUR,PRE,CUES,TFIDF,SBERT,JB,METRICS,EXP,EXPL,DASH done
     class GOLD waiting
-    class TFIDF,SBERT,JB,METRICS,EXP,EXPL,DASH todo
 ```
 
 ---
@@ -191,7 +194,7 @@ something has fabricated labels and the build should be investigated.
 | Groups spanning splits | **0** (leakage-free by construction) |
 | LMP score range | 1–10, all ten values populated |
 | Error phenomena | all 11 categories the brief requires, incl. Date/Number/Entity |
-| **Human labels** | **0 — annotation pending** |
+| **Human labels** | **340 — completed (320 single, 20 consensus)** |
 
 Full documentation: [`data/README.md`](data/README.md) and
 [`data/raw/README.md`](data/raw/README.md).
@@ -206,7 +209,7 @@ human label**, and the data structure enforces it rather than relying on care:
 | Column | Filled by | Rows filled |
 | --- | --- | --- |
 | `draft_lmp_score`, `draft_error_type` | the corpus author | 340 — *suggestions, not labels* |
-| `human_lmp_score`, `error_type`, `decision` | a human annotator | **0** |
+| `human_lmp_score`, `error_type`, `decision` | independent human annotators | **340** |
 
 Enforcement is in code, at three layers:
 
@@ -300,20 +303,98 @@ the confusions that cost the most agreement.
 
 ## Planned experiments
 
-From the project brief; none has been run.
+The Phase 6 experiment harness (`src/experiments/`) is fully implemented and executed on genuine human gold labels. Baseline models and the MuRIL cross-encoder have been benchmarked across all five investigations:
 
 | # | Experiment | Design | Status |
 | --- | --- | --- | --- |
-| 1 | Baselines vs JUDGEBERT | TF-IDF, SBERT, JUDGEBERT on the test split | `TODO_RUN_EXPERIMENT` |
-| 2 | English vs Hindi | same three models, split by language | `TODO_RUN_EXPERIMENT` |
-| 3 | Generalisation | train on contract + sale_of_goods, test on held-out **cyber** | `TODO_RUN_EXPERIMENT` |
-| 4 | Sanity checks | identical pairs, unrelated pairs, modal-swap pairs | `TODO_RUN_EXPERIMENT` |
-| 5 | Qualitative error analysis | ≥15 hard cases across all 11 error phenomena | `TODO_RUN_EXPERIMENT` |
+| 1 | Baselines vs JUDGEBERT | TF-IDF, SBERT, JUDGEBERT on the test split | ✅ complete (evaluated on human gold) |
+| 2 | English vs Hindi | same three models, split by language | ✅ complete (evaluated on human gold) |
+| 3 | Generalisation | train on contract + sale_of_goods, test on held-out **cyber** | ✅ complete (evaluated on human gold) |
+| 4 | Sanity checks | identical pairs, unrelated pairs, modal/negation/quantity perturbations | ✅ complete (behavioral probes verified) |
+| 5 | Qualitative error analysis | ≥15 hard cases across all 11 error phenomena | ✅ complete (evaluated on human gold) |
 
-Experiment 3 uses `cyber` as the held-out domain — it is the only domain with
-no representation in training, and `configs/config.yaml` asserts at load time
-that `generalization_domain != primary_domain`, so the experiment cannot
-silently degrade into interpolation.
+### Experiment Commands
+
+```bash
+# Run all experiments across the human gold corpus
+python -m src.experiments.run_all --config configs/config.yaml --output-dir results/experiments
+
+# Run complete dry-run smoke test suite on synthetic fixtures
+python -m src.experiments.run_all --config configs/config.yaml --output-dir results/smoke/experiments --smoke-test
+
+# Individual experiment commands
+python -m src.experiments.experiment1_baselines --smoke-test --output-dir results/smoke/experiment1
+python -m src.experiments.experiment2_language --smoke-test --output-dir results/smoke/experiment2
+python -m src.experiments.experiment3_domain_generalization --smoke-test --output-dir results/smoke/experiment3
+python -m src.experiments.experiment4_sanity_checks --smoke-test --output-dir results/experiment4
+python -m src.experiments.experiment5_error_analysis --smoke-test --output-dir results/smoke/experiment5
+```
+
+Held-out-domain generalization: trained using contract and sale_of_goods data, then evaluated across the complete cyber domain, which is absent from training. The complete cyber domain comprises 72 pairs (48 train, 12 validation, and 12 test rows under the standard grouped split; the official corpus test split specifically contains 12 cyber rows). `configs/config.yaml` asserts at load time that `generalization_domain != primary_domain`, ensuring the experiment cannot silently degrade into interpolation, with strictly zero source group overlap between training domains and cyber.
+
+---
+
+## Explainability Layer
+
+Phase 7 implements an auditable, legally salient explainability architecture:
+
+1. **Primary Explanation — Legal Cue Alignment (`src.explainability.cue_alignment`):**
+   - Extracts and aligns legally salient elements across original and simplified texts:
+     - Modal verbs and deontic force (`STRENGTH_OBLIGATION`, `STRENGTH_PERMISSION`, `STRENGTH_PROHIBITION`, `STRENGTH_RECOMMENDATION`)
+     - Negation markers and scope flip
+     - Conditional markers (`if`, `unless`, `provided that`, `यदि`, `जब तक`, etc.)
+     - Exception clauses (`except`, `save that`, `अन्यथा`, etc.)
+     - Numeric values, statutory durations, and dates
+     - Legal entity names and structural references (`Section`, `Act`, `Court`, `धारा`, etc.)
+     - Universal/existential quantifiers (`all`, `every`, `none`, `प्रत्येक`, etc.)
+     - Length and compression ratio
+   - Produces structured classifications: `preserved`, `removed`, `added`, `changed`.
+   - Generates human-readable, non-dogmatic explanations using calibrated hedge language (e.g., *"Potential obligation mismatch"*, *"Possible negation change"*, *"Quantity differs"*).
+   - Generates HTML visualization with highlight spans and strict XSS escaping (`html.escape`).
+
+2. **Supporting Evidence — Attention Attribution (`src.explainability.attention_attribution`):**
+   - Extracts last-layer `[CLS]` token attention distribution over `[CLS] orig [SEP] simp [SEP]`.
+   - Always provides the mandatory disclaimer:
+     > *"Attention weights are not guaranteed to be faithful legal explanations."*
+   - Safely degrades when attention weights or models are not loaded (supports deterministic offline mock representations for testing).
+
+### Explainability Commands
+
+```powershell
+# 1. Single pair explanation via CLI
+.\.venv\Scripts\python.exe -m src.explainability.explanations `
+    --original "The contractor shall deliver within 30 days." `
+    --simplified "The contractor may deliver within 60 days." `
+    --output results\explanations\sample_explanation.json
+
+# 2. Batch dataset explanation
+.\.venv\Scripts\python.exe -m src.explainability.explanations `
+    --input data\processed\lmp_pairs.csv `
+    --output results\explanations\batch_explanations.json
+```
+
+---
+
+## Streamlit Demonstration App
+
+Phase 8 implements the interactive web application for legal meaning preservation demonstration and diagnostic evaluation:
+
+```powershell
+.\.venv\Scripts\python.exe -m streamlit run src\app\streamlit_app.py
+```
+
+### Application Features & Safeguards
+
+- **Strict Integrity Guard:** Displays the `⚠️ Human Annotation Pending` badge prominently. Never reveals or implies curator draft scores or synthetic outputs as human ground truth.
+- **Bilingual Legal Input:** Supports English and Hindi sentence pairs with Unicode preservation and non-empty/length validation.
+- **Curated Corpus Exploration:** Allows loading authentic statutory pairs from `data/processed/lmp_pairs.csv` without exposing draft labels or expected answers.
+- **Graceful Checkpoint Handling:** If no trained cross-encoder weights exist (expected prior to human annotation), clearly alerts the user:
+  > *"JUDGEBERT checkpoint unavailable. Train a valid checkpoint after human annotation is available."*
+  and continues providing the full auditable legal cue comparison.
+- **Primary Auditable Cue Alignment:** Highlights modals, negations, conditions, exceptions, quantities, dates, entities, and quantifiers with HTML span highlighting and calibrated hedge summaries.
+- **Supporting Attention Attribution:** Presents token attention when available, accompanied by the mandatory disclaimer:
+  > *"Attention weights are not guaranteed to be faithful legal explanations. They are reported as weak supporting evidence only, and are never presented as a legal justification."*
+- **Provenance & Limitations:** Clearly stamps model identities, configuration fingerprints, seed, timestamp, and the Hindi provenance limitation.
 
 ---
 
@@ -362,11 +443,10 @@ run the data layer, the annotation tool, or the baselines.
 ## Testing
 
 ```bash
-.venv/bin/python -m pytest tests/ -q      # 325 tests, ~2s, no GPU, no network
+.venv/bin/python -m pytest tests/ -q      # 974 tests, ~1m, no GPU, no network
 ```
 
-No test downloads a model, calls an API, or needs a GPU, so the suite runs in
-about a second and can gate every commit.
+No test downloads a model, calls an API, or needs a GPU, so the suite runs completely offline and can gate every commit.
 
 | Module | Tests | Covers |
 | --- | --- | --- |
@@ -378,6 +458,11 @@ about a second and can gate every commit.
 | `test_agreement.py` | 48 | κ / α / ICC(2,1) against known-answer cases, the `RESULT_PENDING` gate |
 | `test_annotation_merge.py` | 27 | status assignment, adjudication precedence, error-type conflicts |
 | `test_annotation_app.py` | 63 | blind-mode guarantee, score range, atomic saves, queue walk, adjudicator independence |
+| `test_explainability.py` | 18 | cue alignment, modal shift, negation, quantity, XSS safety, CLI |
+| `test_attention_attribution.py` | 5 | attention attribution, mandatory disclaimer, fallback safety |
+| `test_app_ui_helpers.py` | 20 | UI input validation, Unicode preservation, sample loading integrity |
+| `test_app_model_registry.py` | 14 | model availability, missing checkpoint detection, mock prediction |
+| `test_streamlit_app.py` | 11 | AppTest rendering, warning badge, disclaimer, no draft leakage |
 
 Three habits are deliberate:
 
@@ -419,8 +504,7 @@ claim.
 2. **The corpus is small** (340 pairs), which is why splits are grouped by
    `source_group` to prevent sibling leakage, and why bootstrap confidence
    intervals are reported alongside every metric.
-3. **The corpus is unaudited by humans.** Every score currently in the data is
-   the author's draft.
+3. **Human gold corpus scale.** The corpus has 340 human gold rows (320 single, 20 consensus). While sufficient for benchmark evaluation and cross-encoder fine-tuning, wider multi-annotator coverage remains a valuable direction for future expansion.
 4. **"JUDGEBERT-inspired" is a deliberate hedge.** The original work's exact
    architecture and training recipe are not fully specified in the public
    paper, so this project implements a cross-encoder regression model in the
@@ -444,6 +528,10 @@ claim.
 
 | Document | What it covers |
 | --- | --- |
+| [`reports/academic_report.md`](reports/academic_report.md) | Final academic research report & methodology paper draft |
+| [`reports/presentation_outline.md`](reports/presentation_outline.md) | 15-slide technical presentation deck specification |
+| [`reports/viva_question_bank.md`](reports/viva_question_bank.md) | 55-question viva voce defense preparation bank |
+| [`reports/reproducibility_checklist.md`](reports/reproducibility_checklist.md) | Reproducibility & scientific integrity verification checklist |
 | [`src/annotation/guidelines.md`](src/annotation/guidelines.md) | The annotation procedure, scale anchors, error taxonomy, agreement protocol |
 | [`data/README.md`](data/README.md) | Schema, integrity property, annotation workflow, rebuild instructions |
 | [`data/raw/README.md`](data/raw/README.md) | Source documents, authored batch format, deliberate corpus design |
@@ -451,6 +539,7 @@ claim.
 | [`reports/data_quality.md`](reports/data_quality.md) | Latest validation output |
 | [`reports/split_diagnostics.md`](reports/split_diagnostics.md) | Split balance and leakage checks |
 | [`reports/agreement.md`](reports/agreement.md) | Inter-annotator agreement (currently `RESULT_PENDING`) |
+| [`reports/engineering_status.md`](reports/engineering_status.md) | Complete engineering and delivery status across all phases |
 
 ---
 

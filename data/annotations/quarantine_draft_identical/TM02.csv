@@ -1,0 +1,21 @@
+pair_id,human_lmp_score,error_type,notes,annotator_id,annotated_at
+ENG_CON_026,8,None,"Reorders the 'unless' clause but preserves the contrary-intention exception and the joint obligation. No operative loss.",TM02,2026-11-17T12:30:00Z
+HIN_CON_026,8,None,"Hindi counterpart; विपरीत आशय qualifier and joint obligation fully retained.",TM02,2026-11-17T12:30:00Z
+ENG_CON_027,8,None,"Devolution rule for joint lives and for the representative + survivors is preserved in both stages.",TM02,2026-11-17T12:30:00Z
+HIN_CON_027,8,None,"Hindi counterpart; joint-life and post-death devolution both retained.",TM02,2026-11-17T12:30:00Z
+ENG_CON_028,5,Omission,"Drops the precondition that the promisor has not undertaken to perform without application, plus the proper-place and usual-hours qualifiers. Duty becomes unconditional and location/time-unspecified.",TM02,2026-11-17T12:30:00Z
+HIN_CON_028,5,Omission,"Hindi counterpart; precondition and both qualifiers removed.",TM02,2026-11-17T12:30:00Z
+ENG_CON_029,3,Obligation/Permission,"'may' → 'must'. Converts a liberty of the promisor into a binding requirement; also drops 'or sanctions', narrowing the modes the promisee may accept.",TM02,2026-11-17T12:30:00Z
+HIN_CON_029,3,Obligation/Permission,"Hindi counterpart; 'किया जा सकता है' → 'किया जाना चाहिए'.",TM02,2026-11-17T12:30:00Z
+ENG_CON_030,5,Omission,"Compensation entitlement is dropped. Rescission survives but the damages claim does not.",TM02,2026-11-17T12:30:00Z
+HIN_CON_030,5,Omission,"Hindi counterpart; क्षतिपूर्ति entitlement removed.",TM02,2026-11-17T12:30:00Z
+ENG_CON_031,1,Contradiction,"'the legal branch alone can be enforced' → 'neither branch can be enforced'. Severability of the lawful limb is reversed; the whole promise is made unenforceable.",TM02,2026-11-17T12:30:00Z
+HIN_CON_031,1,Contradiction,"Hindi counterpart; 'केवल विधिपूर्ण शाखा' → 'कोई भी शाखा नहीं'.",TM02,2026-11-17T12:30:00Z
+ENG_CON_034,9,None,"All three triggering events (substitute, rescind, alter) retained; only stylistic change.",TM02,2026-11-17T12:30:00Z
+HIN_CON_034,9,None,"Hindi counterpart; all three triggers retained.",TM02,2026-11-17T12:30:00Z
+ENG_CON_037,9,None,"Cross-reference to proposal communication/revocation rules preserved intact.",TM02,2026-11-17T12:30:00Z
+HIN_CON_037,9,None,"Hindi counterpart.",TM02,2026-11-17T12:30:00Z
+ENG_CON_039,3,Omission,"Drops 'reasonable compensation not exceeding'. Converts a ceiling on damages into an entitlement to the full stipulated sum — the opposite of the section's purpose.",TM02,2026-11-17T12:30:00Z
+HIN_CON_039,3,Omission,"Hindi counterpart; 'उचित क्षतिपूर्ति' ceiling removed.",TM02,2026-11-17T12:30:00Z
+ENG_CON_040,9,None,"Definition of guarantee and the oral/written rule both preserved.",TM02,2026-11-17T12:30:00Z
+HIN_CON_040,9,None,"Hindi counterpart.",TM02,2026-11-17T12:30:00Z

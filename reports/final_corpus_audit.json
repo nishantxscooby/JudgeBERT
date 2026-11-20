@@ -1,5 +1,17 @@
 {
+  "provenance": {
+    "generated_at_utc": "2026-11-11T08:18:51Z",
+    "git_revision": "unknown",
+    "python_version": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "config_fingerprint": "d014eeff5f86",
+    "project_version": "0.1.0",
+    "seed": 42,
+    "audit": "final_corpus"
+  },
   "total_rows": 340,
+  "unique_pair_ids": 340,
+  "missing_required_columns": [],
   "missing_fields": [],
   "language_counts": {
     "en": 170,
@@ -10,13 +22,18 @@
     "cyber": 72,
     "sale_of_goods": 66
   },
+  "split_totals": {
+    "train": 234,
+    "test": 56,
+    "validation": 50
+  },
   "split_counts": {
-    "en_train": {
-      "contract": 70,
-      "cyber": 24,
-      "sale_of_goods": 23
+    "en_test": {
+      "contract": 16,
+      "cyber": 6,
+      "sale_of_goods": 6
     },
-    "hi_train": {
+    "en_train": {
       "contract": 70,
       "cyber": 24,
       "sale_of_goods": 23
@@ -26,20 +43,20 @@
       "cyber": 6,
       "sale_of_goods": 4
     },
-    "hi_validation": {
-      "contract": 15,
-      "cyber": 6,
-      "sale_of_goods": 4
-    },
-    "en_test": {
-      "contract": 16,
-      "cyber": 6,
-      "sale_of_goods": 6
-    },
     "hi_test": {
       "contract": 16,
       "cyber": 6,
       "sale_of_goods": 6
+    },
+    "hi_train": {
+      "contract": 70,
+      "cyber": 24,
+      "sale_of_goods": 23
+    },
+    "hi_validation": {
+      "contract": 15,
+      "cyber": 6,
+      "sale_of_goods": 4
     }
   },
   "duplicate_pair_ids": [],
@@ -52,6 +69,17 @@
   ],
   "duplicate_simplified_texts": [],
   "source_groups_spanning_splits": {},
+  "leakage_free": true,
   "verbatim_quote_mismatches": [],
-  "identical_original_simplified": []
+  "identical_original_simplified": [],
+  "human_annotation": {
+    "gold_rows": 0,
+    "human_lmp_score_populated": 0,
+    "error_type_populated": 0,
+    "decision_populated": 0,
+    "annotation_status_counts": {
+      "draft": 340
+    },
+    "draft_rows_are_gold": 0
+  }
 }

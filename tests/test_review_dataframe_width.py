@@ -21,6 +21,7 @@ def test_review_dataframe_no_string_width(monkeypatch):
         captured["kwargs"] = kwargs
         return df
     monkeypatch.setattr(st, "dataframe", fake_dataframe)
+    monkeypatch.setattr(app, "_load_own_scores", lambda _: corpus.copy())
     # Run the review tab (it will invoke our fake dataframe)
     app.tab_review(corpus, "A01")
     # Verify that width is not a string and use_container_width is used (or omitted)

@@ -46,6 +46,13 @@ SEVERITY_ERROR = "ERROR"
 SEVERITY_WARNING = "WARNING"
 SEVERITY_INFO = "INFO"
 
+# These warnings describe the expected pre-annotation state rather than a
+# structural or data-quality defect.  Strict Phase 1 validation must still pass
+# while they are the only findings; every other warning remains blocking.
+STRICT_NON_BLOCKING_WARNING_CODES: frozenset[str] = frozenset(
+    {"gold_coverage", "no_human_annotations", "annotation_incomplete"}
+)
+
 
 @dataclass
 class Issue:
@@ -127,6 +134,21 @@ class ValidationReport:
 
 class DataValidationError(ValueError):
     """Raised when the corpus violates a hard schema requirement."""
+
+
+def strict_blocking_warnings(report: ValidationReport) -> list[Issue]:
+    """Return warnings that should fail ``--strict`` validation.
+
+    Missing human annotations are an explicit downstream experiment blocker,
+    but they do not make the unannotated corpus structurally invalid.  Strict
+    mode therefore permits only the two warnings that document that expected
+    state and continues to reject every other warning.
+    """
+    return [
+        issue
+        for issue in report.warnings
+        if issue.code not in STRICT_NON_BLOCKING_WARNING_CODES
+    ]
 
 
 # ---------------------------------------------------------------------------
@@ -656,8 +678,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--data", type=str, default=None,
                         help="Path to the master CSV (default: config dataset.master_file)")
     parser.add_argument("--config", type=str, default=None, help="Path to config YAML")
-    parser.add_argument("--strict", action="store_true",
-                        help="Treat warnings as errors as well")
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help=(
+            "Treat data-quality warnings as errors; expected missing-human-"
+            "annotation warnings remain non-blocking"
+        ),
+    )
     parser.add_argument("--write-report", action="store_true",
                         help="Write results/data_validation.json and reports/data_quality.md")
     parser.add_argument("--no-leakage-check", action="store_true",
@@ -704,9 +732,21 @@ def main(argv: list[str] | None = None) -> int:
     if not report.ok:
         logger.error("Validation FAILED with %d error(s).", len(report.errors))
         return 1
-    if args.strict and report.warnings:
-        logger.error("Strict mode: %d warning(s) treated as failure.", len(report.warnings))
-        return 1
+    if args.strict:
+        blocking_warnings = strict_blocking_warnings(report)
+        if blocking_warnings:
+            logger.error(
+                "Strict mode: %d data-quality warning(s) treated as failure: %s",
+                len(blocking_warnings),
+                [issue.code for issue in blocking_warnings],
+            )
+            return 1
+        if report.warnings:
+            logger.info(
+                "Strict mode passed with %d expected pre-annotation warning(s): %s",
+                len(report.warnings),
+                [issue.code for issue in report.warnings],
+            )
 
     logger.info("Validation passed.")
     return 0

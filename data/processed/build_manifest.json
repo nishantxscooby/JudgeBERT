@@ -1,14 +1,14 @@
 {
   "provenance": {
-    "generated_at_utc": "2026-10-06T12:17:23Z",
+    "generated_at_utc": "2026-11-11T08:11:53Z",
     "git_revision": "unknown",
-    "python_version": "3.12.6",
-    "platform": "macOS-27.0.1-arm64-arm-64bit",
+    "python_version": "3.12.10",
+    "platform": "Windows-11-10.0.26200-SP0",
     "config_fingerprint": "d014eeff5f86",
     "project_version": "0.1.0",
     "seed": 42
   },
-  "authored_dir": "data/raw/authored",
+  "authored_dir": "data\\raw\\authored",
   "authored_files": [
     "contract_batch01.jsonl",
     "contract_batch02.jsonl",
